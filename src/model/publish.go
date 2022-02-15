@@ -9,7 +9,7 @@ import (
 
 type Publish struct {
 	Data  []interface{} `json:"data" validate:"required,min=1"`
-	Topic string        `json:"topic" validate:"required,min=5"`
+	Topic string        `json:"topic" validate:"required,min=3"`
 }
 
 func (p *Publish) Validate() (valErrs validator.ValidationErrors) {
@@ -26,7 +26,7 @@ func (p *Publish) GetBytes() []byte {
 	if data, err := json.Marshal(*p); err == nil {
 		return data
 	} else {
-		fmt.Println("error on covert Publish to bytes", err)
+		fmt.Println("Publish.GetBytes error on covert Publish to bytes", err)
 	}
 
 	return nil

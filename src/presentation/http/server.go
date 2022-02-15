@@ -18,8 +18,9 @@ func StartHttpServer(ch *chan error) {
 		r.Mount("/publish", getPublishRoutes())
 	})
 
+	fmt.Println("avaliable routes:")
 	walkThroughRoutes := func(method string, route string, handler netHttp.Handler, middleware ...func(netHttp.Handler) netHttp.Handler) error {
-		fmt.Println(fmt.Sprintf("%s %s", method, route))
+		fmt.Println(fmt.Sprintf("- %s %s", method, route))
 		return nil
 	}
 
