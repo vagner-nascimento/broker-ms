@@ -3,6 +3,7 @@ package app
 import (
 	"broker/src/infra"
 	"broker/src/model"
+	appTypes "broker/src/types"
 )
 
 type publishEntity struct {
@@ -10,8 +11,8 @@ type publishEntity struct {
 	repo infra.PublishDataHandler
 }
 
-func (p *publishEntity) Save() error {
-	return p.repo.Save(*p.pub)
+func (p *publishEntity) Save(c *appTypes.Counter) error {
+	return p.repo.Save(*p.pub, c)
 }
 
 func newPublishEntity(p model.Publish) publishEntity {

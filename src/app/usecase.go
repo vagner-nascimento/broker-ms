@@ -1,9 +1,12 @@
 package app
 
-import "broker/src/model"
+import (
+	"broker/src/model"
+	appTypes "broker/src/types"
+)
 
-func savePublishe(p model.Publish) (err error) {
+func savePublish(p model.Publish, c *appTypes.Counter) error {
 	pEnt := newPublishEntity(p)
 
-	return pEnt.Save()
+	return pEnt.Save(c)
 }

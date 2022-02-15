@@ -1,7 +1,10 @@
 package infra
 
-import "broker/src/model"
+import (
+	"broker/src/model"
+	appTypes "broker/src/types"
+)
 
 type PublishDataHandler interface {
-	Save(p model.Publish) (err error)
+	Save(p model.Publish, c *appTypes.Counter) error
 }

@@ -27,6 +27,7 @@ func postPublish(w netHttp.ResponseWriter, r *netHttp.Request) {
 		resCh := pubAdp.SaveAll(ps)
 
 		var notNilErrs []error
+
 		for err := range *resCh {
 			if err != nil {
 				fmt.Println("postPublis item err", err)
@@ -37,7 +38,6 @@ func postPublish(w netHttp.ResponseWriter, r *netHttp.Request) {
 		if len(notNilErrs) > 0 {
 			writeErrorResponse(w, notNilErrs[0])
 		} else {
-			fmt.Println("postPublish all data saved")
 			w.WriteHeader(netHttp.StatusAccepted)
 		}
 	} else {
