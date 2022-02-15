@@ -23,15 +23,22 @@ func getPublishRoutes() *chi.Mux {
 
 func postPublish(w netHttp.ResponseWriter, r *netHttp.Request) {
 	if ps, err := parseAndValidatePublishes(r); err == nil {
-		app.NewPublishAdapter()
 		pubAdp := app.NewPublishAdapter()
+		resCh := pubAdp.SaveAll(ps)
 
-		if err := pubAdp.SaveAll(ps); err == nil {
-			fmt.Println("postPublish data saved")
-			w.WriteHeader(netHttp.StatusAccepted)
+		var notNilErrs []error
+		for err := range *resCh {
+			if err != nil {
+				fmt.Println("postPublis item err", err)
+				notNilErrs = append(notNilErrs, err)
+			}
+		}
+
+		if len(notNilErrs) > 0 {
+			writeErrorResponse(w, notNilErrs[0])
 		} else {
-			fmt.Println("postPublish error on save data", err)
-			writeErrorResponse(w, err)
+			fmt.Println("postPublish all data saved")
+			w.WriteHeader(netHttp.StatusAccepted)
 		}
 	} else {
 		fmt.Println("postPublish parse errors", err)
