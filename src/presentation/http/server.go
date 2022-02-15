@@ -28,7 +28,7 @@ func StartHttpServer(ch *chan error) {
 		fmt.Println("error on walkThroughRoutes", err)
 		*ch <- errors.New("error on try to start http server")
 	} else {
-		port := 3000
+		port := 80
 
 		if envPort := os.Getenv("LISTEN_PORT"); len(envPort) > 0 {
 			port, _ = strconv.Atoi(envPort)
