@@ -8,7 +8,7 @@ A http service that publishes messages into AMQP topics
 # Local: Install and run
 - `dependencies`: go mod download
 - `build`: go build -o main .
-- `env`: export LISTEN_PORT=<port>
+- `env`: export LISTEN_PORT=port_number
 - `env`: export AMQP_CONN=amqp://guest:guest@localhost:5672
 - `run`: /path/to/app/main
 
