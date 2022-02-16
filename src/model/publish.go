@@ -2,7 +2,6 @@ package model
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/go-playground/validator"
 )
@@ -20,16 +19,6 @@ func (p *Publish) Validate() (valErrs validator.ValidationErrors) {
 	}
 
 	return valErrs
-}
-
-func (p *Publish) GetBytes() []byte {
-	if data, err := json.Marshal(*p); err == nil {
-		return data
-	} else {
-		fmt.Println("Publish.GetBytes error on covert Publish to bytes", err)
-	}
-
-	return nil
 }
 
 func NewPublishesFromJsonBytes(bys []byte) (ps []Publish, err error) {
