@@ -8,7 +8,7 @@ import (
 
 type publishAdapter struct{}
 
-func (p *publishAdapter) SaveAll(ps []model.Publish) *chan error {
+func (p *publishAdapter) SaveAll(ps []model.Publish) <-chan error {
 	res := make(chan error)
 
 	go func() {
@@ -22,7 +22,7 @@ func (p *publishAdapter) SaveAll(ps []model.Publish) *chan error {
 		fmt.Println("publishAdapter.save ", count.Get(), " messages sent")
 	}()
 
-	return &res
+	return res
 }
 
 func NewPublishAdapter() PublishHandler {

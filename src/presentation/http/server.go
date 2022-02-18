@@ -10,7 +10,8 @@ import (
 	"github.com/go-chi/chi"
 )
 
-func StartHttpServer() (ch *chan error) {
+func StartHttpServer() <-chan error {
+	ch := make(chan error)
 	router := chi.NewRouter()
 
 	router.Use(getMiddlewareList()...)
@@ -26,7 +27,7 @@ func StartHttpServer() (ch *chan error) {
 
 	if err := chi.Walk(router, walkThroughRoutes); err != nil {
 		fmt.Println("error on walkThroughRoutes", err)
-		*ch <- errors.New("error on try to start http server")
+		ch <- errors.New("error on try to start http server")
 	} else {
 		port := 80
 
@@ -36,7 +37,7 @@ func StartHttpServer() (ch *chan error) {
 
 		fmt.Println(fmt.Sprintf("http server connected on port: %d", port))
 
-		*ch <- netHttp.ListenAndServe(fmt.Sprintf(":%d", port), router)
+		ch <- netHttp.ListenAndServe(fmt.Sprintf(":%d", port), router)
 	}
 
 	return ch

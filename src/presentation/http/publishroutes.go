@@ -28,7 +28,7 @@ func postPublish(w netHttp.ResponseWriter, r *netHttp.Request) {
 
 		var notNilErrs []error
 
-		for err := range *resCh {
+		for err := range resCh {
 			if err != nil {
 				fmt.Println("postPublis item err", err)
 				notNilErrs = append(notNilErrs, err)

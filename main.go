@@ -11,7 +11,7 @@ func main() {
 
 	errs := start.StartApplication()
 	for {
-		err := <-*errs
+		err := <-errs
 		log.Fatal("error - exiting application", err)
 	}
 }
