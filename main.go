@@ -3,6 +3,7 @@ package main
 import (
 	"broker/src/start"
 	"fmt"
+	"log"
 )
 
 func main() {
@@ -11,6 +12,6 @@ func main() {
 	errs := start.StartApplication()
 	for {
 		err := <-*errs
-		fmt.Println(err)
+		log.Fatal("error - exiting application", err)
 	}
 }

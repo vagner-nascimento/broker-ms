@@ -10,7 +10,7 @@ import (
 	"github.com/go-chi/chi"
 )
 
-func StartHttpServer(ch *chan error) {
+func StartHttpServer() (ch *chan error) {
 	router := chi.NewRouter()
 
 	router.Use(getMiddlewareList()...)
@@ -38,4 +38,6 @@ func StartHttpServer(ch *chan error) {
 
 		*ch <- netHttp.ListenAndServe(fmt.Sprintf(":%d", port), router)
 	}
+
+	return ch
 }
